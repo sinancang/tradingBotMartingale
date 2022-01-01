@@ -1,0 +1,1 @@
+A simple trading bot algorithm that checks the past time-frame to see if there has been a win or a loss. If there has been a loss, the algorithm increases the bet, if there has been a win, the algorithm sells an amount of the stock.
