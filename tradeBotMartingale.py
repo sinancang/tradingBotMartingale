@@ -15,33 +15,43 @@ class Martingale(object):
             self.position = int(self.api.get_position(self.symbol).qty)
         except:
             self.position = 0
-
+    
+    # submits orders until position reaches target
     def submit_order(self, target):
         if self.current_order is not none:
             self.api.cancel_order(self.current_order.id)
         
         delta = target - self.position
+        
+        # if position is at the target, do nothing
         if delta == 0:
             return
-        print(f'Processing the order for {target} shares')
 
+        # otherwise do something
+        print(f'Processing the order for {target} shares')
+        
+        # if position is positive, target > position. we need to buy
         if delta > 0:
             buy_quantity = delta
-            if self.position < 0:
-                buy_quantity = min(abs(self.position), buy_quantity)
             print(f'Buying {buy_quantity} shares')
-            self.current_order = self.api.submit_order(self.symbol,buy_quantity,'buy','limit','day',self.last_price)
-
+            self.current_order = self.api.submit_order(self.symbol,buy_quantity,'buy','market','day')
+        
+        # if position is negative, target < position, we need to sell
         elif delta < 0:
             sell_quantity = abs(delta)
-            if self.position > 0:
-                sell_quantity = min(abs(self.position), sell_quantity)
             print(f'Selling {sell_quantity} shares')
-            self.current_order = self.api.submit_order(self.symbol, sell_quantity,'sell','limit','day',self.last_price)
-
-
+            self.current_order = self.api.submit_order(self.symbol,sell_quantity,'sell','market','day')
+    
+    # analyse today's data to determine target
+    def analyse_data(self):
+        # fetch price of last buy
+        # fetch current market price
+        # calculate percent change
+        # if there has been a decrease, increase target
+        # if there has been an increase, decrease target
 
 
 if __name__ == '__main__':
     t = Martingale()
-    t.submit_order(3)
+    target = analyse_data
+    t.submit_order(target)
