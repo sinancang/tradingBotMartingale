@@ -1,5 +1,6 @@
-A simple trading bot that uses the martingale strategy by checking the past time-frame to see if there has been a win or a loss. 
-If there has been a loss, the algorithm increases the bet, if there has been a win, the algorithm sells an amount of the stock.
+A trading bot that uses the martingale strategy to periodically market buy/sell stocks via the alpaca api
+If there has been a loss, the algorithm buys,
+If there has been a win, the algorithm sells.
 
 
 issues:
