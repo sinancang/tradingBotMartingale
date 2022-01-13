@@ -14,15 +14,19 @@ if __name__ == '__main__':
     t = trader.tradingBot()
     print(f"The trader bot is set up to trade {t.symbol} and will trade using the alpaca tradeapi.")
     clock = t.api.get_clock()
-    if clock.is_open:
+    if True:
         print("The market is open! Let's try and trade.")
-        print(f"We start off the day with 1 share of {t.symbol}")
-        submit_order(t)
-        trader.target = 1
+        print(f"We start off the day with {t.position} share of {t.symbol}")
         i = 0
-        while clock.is_open and i < 10:
+        while True and i < 10:
             print("Analysing data...")
-            time.sleep(3)
             if calculate_price_change(t) == 1:
+                print("Submitting order...")
                 submit_order(t)
+ #               t.listen_for_updates()  doesn't work yet
             i += 1
+            while t.current_order != None:
+                print('waiting for order to be filled...')
+                time.sleep(1)
+    else:
+        print("The market is currently closed, come back later!")

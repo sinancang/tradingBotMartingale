@@ -5,8 +5,8 @@ import re
 class tradingBot():
     def __init__(self):
         # setup alpaca api
-        self.key = os.environ['ALPACA_KEY']
-        self.secret = os.environ['ALPACA_SKEY']
+        self.key = os.environ['APCA_API_KEY_ID']
+        self.secret = os.environ['APCA_API_SECRET_KEY']
         self.alpaca_endpoint = 'https://paper-api.alpaca.markets'
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
 
@@ -22,12 +22,11 @@ class tradingBot():
         last_price = re.search('filled_avg_price(.+?),',last_order)
         last_price = re.split('\s', last_price.group())
         last_price = re.sub("[\',]", "", last_price[1])
-        last_price = float(last_price)
-        print(last_price)
+        self.last_price = float(last_price)
 
         # try to set position if there is one, if not, set to 0
         try:
-            self.position = int(self.api.get_position(self.symbol).qty)
+            self.position = float(self.api.get_position(self.symbol).qty)
         except:
             self.position = 0
         
@@ -36,4 +35,13 @@ class tradingBot():
 
     def get_current_price(self):
         symbol_bars = self.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
-        return symbol_bars[self.symbol]['close']
+        current_price = symbol_bars[self.symbol]['close']
+        return current_price
+
+    def listen_for_updates(self):
+        conn = tradeapi.stream2.StreamConn()
+        client_order_id = self.current_order.id
+        @conn.on(client_order_id)
+        async def on_msg(conn, channel, data):
+            print("Update for {}. Event: {}.".format(client_order_id, data['event']))
+        conn.run(['trade_updates'])

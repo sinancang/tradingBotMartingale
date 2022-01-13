@@ -5,7 +5,6 @@ If there has been a win, the algorithm sells.
 
 issues:
 - strategy optimization required
-- do not attempt another order before the current order is filled
+- listen for updates, wait for order to be filled before attempting another
 
-
-It still isn't perfect but to run it, run martingale.py
+To run, type "python martingale.py" on the command line.

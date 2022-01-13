@@ -10,18 +10,18 @@ def submit_order(trader):
         order_type = 'buy'
 
     # if delta is negative, target < position, we need to sell
-    elif delta < 0:
+    else:
         delta = abs(delta)
         print(f'Selling {delta} shares')
         order_type = 'sell'
     
-    trader.current_order = submit_order_helper(order_type, delta)
+    trader.current_order = submit_order_helper(trader, order_type, delta)
    
     # update last price for use later
     trader.last_price = trader.current_order.filled_avg_price
 
-def submit_order_helper(order_type, quantity):
-    trader.current_order = trader.api.submit_order(
+def submit_order_helper(trader, order_type, delta):
+    return trader.api.submit_order(
         symbol=trader.symbol,
         qty=delta,
         side=order_type,
