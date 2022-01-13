@@ -8,3 +8,6 @@ issues:
 - make different class for stock to be traded with helper get current price
 - add method get last order price for trader, extract it from list of orders
 - do not attempt another order before the current order is filled
+
+
+It still isn't perfect but to run it, run martingale.py
