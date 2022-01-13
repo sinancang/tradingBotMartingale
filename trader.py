@@ -1,5 +1,6 @@
 import alpaca_trade_api as tradeapi
 import os
+import re
 
 class tradingBot():
     def __init__(self):
@@ -15,9 +16,14 @@ class tradingBot():
         # initially no order is being processed 
         self.current_order = None
 
-        # get last traded price
-        
-        self.last_price = symbol_bars[self.symbol]['close']
+        # get last traded price        
+        closed_orders = self.api.list_orders(status='closed')
+        last_order = str(closed_orders[-1])
+        last_price = re.search('filled_avg_price(.+?),',last_order)
+        last_price = re.split('\s', last_price.group())
+        last_price = re.sub("[\',]", "", last_price[1])
+        last_price = float(last_price)
+        print(last_price)
 
         # try to set position if there is one, if not, set to 0
         try:
