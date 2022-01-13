@@ -8,16 +8,15 @@ class tradingBot():
         self.secret = os.environ['ALPACA_SKEY']
         self.alpaca_endpoint = 'https://paper-api.alpaca.markets'
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
-        
+
         # pick stock to trade (only one for this alg)
         self.symbol = 'IVV'
 
         # initially no order is being processed 
         self.current_order = None
 
-        # get up-to-date price for symbol
-        # issue!! needs to get last_price of last order!
-        symbol_bars = self.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
+        # get last traded price
+        
         self.last_price = symbol_bars[self.symbol]['close']
 
         # try to set position if there is one, if not, set to 0
@@ -28,3 +27,7 @@ class tradingBot():
         
         # assume initally that target = position
         self.target = self.position
+
+    def get_current_price(self):
+        symbol_bars = self.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
+        return symbol_bars[self.symbol]['close']
