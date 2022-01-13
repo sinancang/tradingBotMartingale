@@ -16,6 +16,7 @@ class tradingBot():
         self.current_order = None
 
         # get up-to-date price for symbol
+        # issue!! needs to get last_price of last order!
         symbol_bars = self.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
         self.last_price = symbol_bars[self.symbol]['close']
 

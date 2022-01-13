@@ -5,7 +5,7 @@
 # otherwise, returns 0
 
 def calculate_price_change(trader):
-    # determine percent change of price
+    # !! issue, needs to get last price of last order
     last_trade = trader.api.get_last_trade(trader.symbol)
     print(f"Our last trade of {trader.symbol} was of price {trader.last_price}")
     print(f"This stock's current last trade is {last_trade.price}")
