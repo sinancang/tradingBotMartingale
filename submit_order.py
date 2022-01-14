@@ -1,8 +1,8 @@
-# submits a order for the target to be equal to the position
+# submits a market buy order for the target to be equal to the position
 def submit_order(trader):
     # delta is the distance of position to target
     delta = trader.target - trader.position
-    print(f'Processing the order for {delta} shares')
+    print(f'Processing the order for {delta} shares of {trader.trading.symbol}')
 
     # if delta is positive, target > position. we need to buy
     if delta > 0:

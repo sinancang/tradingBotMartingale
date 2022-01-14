@@ -5,9 +5,9 @@
 # otherwise, returns 0
 
 def calculate_price_change(trader):
-    print(f"Our last trade of {trader.symbol} was of price {trader.last_price}")
+    print(f"Our last trade of {trader.trading.symbol} was of price {trader.last_price}")
 
-    current_price = trader.get_current_price()
+    current_price = trader.trading.get_current_price()
     print(f"This stock's current price is {current_price}")
     
     percent_change = (current_price / trader.last_price) - 1
