@@ -9,6 +9,7 @@ issues:
 		- allow for generalization such as using other api's, other types of buys and trading objects(shorts, longs, options etc.)
 	
 	medium:
+		- why is the stock object being initialized as a str?
 		- how should submit_order update last_price? get avg filled price for stock OR using stock.get_current_price. which is more accurate?
 		- simplify regex expression
 

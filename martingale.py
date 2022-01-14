@@ -2,7 +2,7 @@
 import time
 
 # local module imports
-import trading_objects
+import tradables, tradingBots
 from data_analysis import calculate_price_change
 from submit_order import submit_order
 
@@ -16,11 +16,11 @@ if __name__ == '__main__':
     # currently doesn't accept user input, but it should
     print("What should we trade today?")
     trading_symbol = 'IVV'
-    trading = trading_objects.stock(trading_symbol)
+    #trading = tradables.stock(trading_symbol)
     
     # initialize tradingbot 
-    t = trading_objects.tradingBot(trading)
-    print(f"The trader bot is set up to trade {t.trading.symbol} and will trade using the alpaca tradeapi.")
+    t = tradingBots.tradingBot(tradables.stock(trading_symbol))
+    print(f"The trader b`ot is set up to trade {t.trading.symbol} and will trade using the alpaca tradeapi.")
     
     # check if market is open
     clock = t.api.get_clock()

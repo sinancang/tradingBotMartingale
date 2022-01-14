@@ -3,7 +3,7 @@ import os
 import re
 
 class tradingBot():
-    def __init__(what_we_trading, self):
+    def __init__(tradable, self):
         # setup alpaca api
         self.key = os.environ['APCA_API_KEY_ID']
         self.secret = os.environ['APCA_API_SECRET_KEY']
@@ -11,7 +11,7 @@ class tradingBot():
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
 
         # pick stock to trade (only one for this alg)
-        self.trading = what_we_trading
+        self.trading = tradable
 
         # initially no order is being processed 
         self.current_order = None
@@ -47,17 +47,3 @@ class tradingBot():
 
         print("Listening for updates on our order")
         conn.run(['trade_updates'])
-
-# a stock object that is an abstraction for the stock currently being traded
-class stock():
-    # might want to add attributes such as volume, volatility etc. when strategy is improved
-    # why we getting an attribute error here?
-    def __init__(trading_symbol, self):
-        self.symbol = trading_symbol
-   
-    # method to get the current price
-    # note: trader is an argument since it is needed to access the api
-    def get_current_price(trader, self):
-        symbol_bars = trader.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
-        current_price = symbol_bars[self.symbol]['close']
-        return current_price
