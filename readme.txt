@@ -5,5 +5,6 @@ If there has been a win, the algorithm sells.
 
 issues:
 - strategy optimization required
+- cancel order if listening takes too long
 
 To run, set up APCA_API_KEY_ID, APCA_API_SECRET_KEY and APCA_API_BASE_URL environment variables, then type "python martingale.py" on the command line.
