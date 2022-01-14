@@ -5,6 +5,5 @@ If there has been a win, the algorithm sells.
 
 issues:
 - strategy optimization required
-- listen for updates, wait for order to be filled before attempting another
 
-To run, type "python martingale.py" on the command line.
+To run, set up APCA_API_KEY_ID, APCA_API_SECRET_KEY and APCA_API_BASE_URL environment variables, then type "python martingale.py" on the command line.

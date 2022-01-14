@@ -7,7 +7,7 @@ class tradingBot():
         # setup alpaca api
         self.key = os.environ['APCA_API_KEY_ID']
         self.secret = os.environ['APCA_API_SECRET_KEY']
-        self.alpaca_endpoint = 'https://paper-api.alpaca.markets'
+        self.alpaca_endpoint = os.environ['APCA_API_BASE_URL']
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
 
         # pick stock to trade (only one for this alg)
@@ -44,4 +44,8 @@ class tradingBot():
         @conn.on(client_order_id)
         async def on_msg(conn, channel, data):
             print("Update for {}. Event: {}.".format(client_order_id, data['event']))
+            print("Order filled!")
+            current_order = None
+
+        print("Listening for updates on our order")
         conn.run(['trade_updates'])

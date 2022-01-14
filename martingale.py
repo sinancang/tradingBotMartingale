@@ -23,13 +23,8 @@ if __name__ == '__main__':
             if calculate_price_change(t) == 1:
                 print("Submitting order...")
                 submit_order(t)
- #               t.listen_for_updates()  doesn't work yet
+            print('waiting for order to be filled...')
+            t.listen_for_updates()
             i += 1
-
-            order_is_filled = False
-            while order_is_filled == False:
-                print('waiting for order to be filled...')
-                # check if order is filled!
-                time.sleep(1)
     else:
         print("The market is currently closed, come back later!")
