@@ -11,16 +11,13 @@ if __name__ == '__main__':
     print("Today we'll be using the martingale strategy which is a rather simple one:") 
     print("After buying, if there is a price decreases, we buy!")
     print("If there is a price increases, we sell!")
-   
-    # get user input & create stock object accordingly
-    # currently doesn't accept user input, but it should
-    print("What should we trade today?")
-    trading_symbol = 'IVV'
-    #trading = tradables.stock(trading_symbol)
-    
+  
+    # initialize stock object
+    trading = tradables.stock()
+
     # initialize tradingbot 
-    t = tradingBots.tradingBot(tradables.stock(trading_symbol))
-    print(f"The trader b`ot is set up to trade {t.trading.symbol} and will trade using the alpaca tradeapi.")
+    t = tradingBots.tradingBot(trading)
+    print(f"The trader bot is set up to trade {t.trading.symbol} and will trade using the alpaca tradeapi.")
     
     # check if market is open
     clock = t.api.get_clock()

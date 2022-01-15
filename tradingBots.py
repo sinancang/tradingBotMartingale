@@ -3,22 +3,20 @@ import os
 import re
 
 class tradingBot():
-    def __init__(tradable, self):
+    def __init__(self, tradable):
         # setup alpaca api
         self.key = os.environ['APCA_API_KEY_ID']
         self.secret = os.environ['APCA_API_SECRET_KEY']
         self.alpaca_endpoint = os.environ['APCA_API_BASE_URL']
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
 
-        # pick stock to trade (only one for this alg)
-        self.trading = tradable
-
         # initially no order is being processed 
         self.current_order = None
 
-        # get last traded price of the stock we're trading
-        # there's probably a more elegant regex line of code here...
-        closed_orders = self.api.list_orders(symbol=self.trading.symbol,status='closed')
+        self.trading = tradable
+
+        # get last order price for tradable
+        closed_orders = self.api.list_orders(status='closed')
         last_order = str(closed_orders[-1])
         last_price = re.search('filled_avg_price(.+?),',last_order)
         last_price = re.split('\s', last_price.group())
