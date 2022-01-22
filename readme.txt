@@ -10,7 +10,6 @@ issues:
 	
 	medium:
 		- how should submit_order update last_price? get avg filled price for stock OR using stock.get_current_price. which is more accurate?
-		- simplify regex expression
 
 	low-hanging-fruit:
 		- cancel order if listening takes too long

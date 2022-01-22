@@ -18,10 +18,9 @@ class tradingBot():
         # get last order price for tradable
         closed_orders = self.api.list_orders(status='closed')
         last_order = str(closed_orders[-1])
-        last_price = re.search('filled_avg_price(.+?),',last_order)
-        last_price = re.split('\s', last_price.group())
-        last_price = re.sub("[\',]", "", last_price[1])
-        self.last_price = float(last_price)
+        x = last_order.split("\n")
+
+        num = float((nums_from_string.get_nums(x[9])[0]))
 
         # try to set position if there is one, if not, set to 0
         try:
