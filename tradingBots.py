@@ -1,4 +1,5 @@
 import alpaca_trade_api as tradeapi
+import nums_from_string
 import os
 
 class tradingBot():
@@ -19,7 +20,7 @@ class tradingBot():
         last_order = str(closed_orders[-1])
         x = last_order.split("\n")
 
-        num = float((nums_from_string.get_nums(x[9])[0]))
+        self.last_price = float((nums_from_string.get_nums(x[9])[0]))
 
         # try to set position if there is one, if not, set to 0
         try:

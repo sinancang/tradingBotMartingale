@@ -22,7 +22,7 @@ def submit_order(trader):
 
 def submit_order_helper(trader, order_type, delta):
     return trader.api.submit_order(
-        symbol=trader.symbol,
+        symbol=trader.trading.symbol,
         qty=delta,
         side=order_type,
         type='market',
