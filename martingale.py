@@ -18,14 +18,15 @@ if __name__ == '__main__':
     trading_entity = tradingBots.tradingAlpaca(trading_object)
     print(f"The trader bot is set up to trade {trading_object.symbol} and will trade using the alpaca tradeapi.")
     
-    # we assume market is open since this is the testing branch
-    if True:
+    # check if market is open
+    clock = trading_entity.api.get_clock()
+    if clock.is_open():
         print("The market is open! Let's try and trade.")
         print(f"We start off the day with {trading_entity.position} share of {trading_object.symbol}")
 
         # attempt to trade 10 times and while market is open
         i = 0
-        while True and i < 10:
+        while clock.is_open() and i < 10:
             print("Analysing data...")
 
             #
