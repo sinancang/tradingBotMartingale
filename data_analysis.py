@@ -5,9 +5,9 @@
 # otherwise, returns 0
 
 def calculate_price_change(trader):
-    print(f"Our last trade of {trader.trading.symbol} was of price {trader.last_price}")
+    print(f"Last price of {trader.trading.symbol} was {trader.last_price}")
 
-    # get current price of the object the trader is trading
+    # get current price of the tradable
     current_price = trader.trading.get_current_price(trader)
     print(f"This stock's current price is {current_price}")
     

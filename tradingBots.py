@@ -1,8 +1,7 @@
 import alpaca_trade_api as tradeapi
-import nums_from_string
 import os
 
-class tradingBot():
+class tradingAlpaca():
     def __init__(self, tradable):
         # setup alpaca api
         self.key = os.environ['APCA_API_KEY_ID']
@@ -15,12 +14,8 @@ class tradingBot():
 
         self.trading = tradable
 
-        # get last order price for tradable
-        closed_orders = self.api.list_orders(status='closed')
-        last_order = str(closed_orders[-1])
-        x = last_order.split("\n")
-
-        self.last_price = float((nums_from_string.get_nums(x[9])[0]))
+        # get current price of tradable
+        self.last_price = self.trading.get_current_price(self)
 
         # try to set position if there is one, if not, set to 0
         try:
@@ -39,8 +34,40 @@ class tradingBot():
             print("Update for {}. Event: {}.".format(client_order_id, data['event']))
             
             # need to add additional functionality for different events such as: filled, failed, etc
+            # for example: updating the last price for trader here
             print("Order filled!")
             current_order = None
 
         print("Listening for updates on our order")
         conn.run(['trade_updates'])
+
+
+    # submits a market buy order for the target to be equal to the position
+    def submit_order(self):
+        # delta is the distance of position to target
+        delta = self.target - self.position
+        print(f'Processing the order for {delta} shares of {self.trading.symbol}')
+
+        # if delta is positive, target > position. we need to buy
+        if delta > 0:
+            print(f'Buying {delta} shares')
+            order_type = 'buy'
+
+        # if delta is negative, target < position, we need to sell
+        else:
+            delta = abs(delta)
+            print(f'Selling {delta} shares')
+            order_type = 'sell'
+
+        self.current_order = submit_order_helper(self, order_type, delta)
+        
+        self.last_price = trader.current_order.filled_avg_price
+    
+    def submit_order_helper(trader, order_type, delta):
+        return trader.api.submit_order(
+            symbol=trader.trading.symbol,
+            qty=delta,
+            side=order_type,
+            type='market',
+            time_in_force='day')
+
