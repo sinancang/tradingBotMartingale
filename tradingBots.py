@@ -55,9 +55,18 @@ class tradingAlpaca():
 
         # if delta is negative, target < position, we need to sell
         else:
+            # if we don't have any shares to sell, break!
+            if self.position == 0:
+                print("We don't have any shares to sell!")
+                break;
+
             delta = abs(delta)
             print(f'Selling {delta} shares')
             order_type = 'sell'
+
+            # if we have less than we can sell, we sell what we have
+            if delta > self.position:
+                delta = self.position
 
         self.current_order = submit_order_helper(self, order_type, delta)
         
