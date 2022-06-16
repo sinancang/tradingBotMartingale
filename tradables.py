@@ -1,3 +1,5 @@
+from logger import log
+
 # a stock object that is an abstraction for the stock currently being traded
 class stock():
     # might want to add attributes such as volume, volatility etc. when strategy is improved
@@ -5,7 +7,7 @@ class stock():
     def __init__(self):
         # get user input & create stock object accordingly
         self.symbol = input("What should we trade today? ")
-        print(self.symbol + ", good choice!")
+        log(f"Today, we're trading {self.symbol}, good choice!")
 
     # method to get the current price
     # note: trader is an argument since it is needed to access the api

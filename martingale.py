@@ -2,7 +2,7 @@
 import time
 
 # local module imports
-import tradables, tradingBots
+import tradables, API_old
 from data_analysis import calculate_price_change
 
 if __name__ == '__main__':

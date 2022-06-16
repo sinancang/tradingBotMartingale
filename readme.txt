@@ -1,3 +1,7 @@
+DISCLAIMER: NOT READY FOR DEPLOYMENT
+
+!! Currently a migration to a more scalable and decoupled system is in progress... !!
+
 A trading bot that uses the martingale strategy to periodically market buy/sell stocks via the alpaca api
 If there has been a loss, the algorithm buys,
 If there has been a win, the algorithm sells.

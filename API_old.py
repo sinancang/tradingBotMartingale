@@ -1,7 +1,7 @@
 import alpaca_trade_api as tradeapi
 import os
 
-class tradingAlpaca():
+class AlpacaAPI():
     def __init__(self, tradable):
         # setup alpaca api
         self.key = os.environ['APCA_API_KEY_ID']
@@ -58,7 +58,6 @@ class tradingAlpaca():
             # if we don't have any shares to sell, break!
             if self.position == 0:
                 print("We don't have any shares to sell!")
-                break;
 
             delta = abs(delta)
             print(f'Selling {delta} shares')
@@ -68,9 +67,9 @@ class tradingAlpaca():
             if delta > self.position:
                 delta = self.position
 
-        self.current_order = submit_order_helper(self, order_type, delta)
+        #self.current_order = submit_order_helper(self, order_type, delta)
         
-        self.last_price = trader.current_order.filled_avg_price
+        #self.last_price = trader.current_order.filled_avg_price
     
     def submit_order_helper(trader, order_type, delta):
         return trader.api.submit_order(
