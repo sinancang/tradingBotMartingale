@@ -2,8 +2,6 @@ from logger import log
 
 # a stock object that is an abstraction for the stock currently being traded
 class stock():
-    # might want to add attributes such as volume, volatility etc. when strategy is improved
-    # why we getting an attribute error here?
     def __init__(self):
         # get user input & create stock object accordingly
         self.symbol = input("What should we trade today? ")

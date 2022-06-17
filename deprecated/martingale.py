@@ -1,9 +1,8 @@
 # python lib imports
-import time
 
 # local module imports
-import tradables, API_old
-from data_analysis import calculate_price_change
+import tradables
+from deprecated.data_analysis import calculate_price_change
 
 if __name__ == '__main__':
     print("Hello and welcome to tradingBotMartingale!")
