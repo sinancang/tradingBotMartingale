@@ -3,6 +3,7 @@ import tradables
 
 import os
 
+# as this is a trade API it should only be used to place orders
 class AlpacaAPI():
     def __init__(self):
         self.key = os.environ['APCA_API_KEY_ID']
