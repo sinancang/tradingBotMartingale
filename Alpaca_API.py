@@ -1,25 +1,42 @@
-import alpaca_trade_api as tradeapi
-import tradables
+import datetime
 
-import os
+import alpaca_trade_api as tradeapi
+import websocket
+
+import Alpaca_credentials
+from utils.logger import log
 
 # as this is a trade API it should only be used to place orders
 class AlpacaAPI():
     def __init__(self):
-        self.key = os.environ['APCA_API_KEY_ID']
-        self.secret = os.environ['APCA_API_SECRET_KEY']
-        self.alpaca_endpoint = os.environ['APCA_API_BASE_URL']
-
+        self.key = Alpaca_credentials.public_key
+        self.secret = Alpaca_credentials.secret_key
+        self.alpaca_endpoint = Alpaca_credentials.endpoint
         self.api = tradeapi.REST(self.key, self.secret, self.alpaca_endpoint)
-
-        self.instrument = tradables.stock()
-
         self.current_order = None
 
-    def get_current_price(self):
-        # I need to get a better grasp of get_barset
-        # might want to set the time interval to something less than a minute
-        symbol_bars = self.api.get_barset(self.symbol, 'minute', 1).df.iloc[0]
-        current_price = symbol_bars[self.symbol]['close']
+    def connect(self):
+        log("Connecting...")
+        ws = websocket.create_connection("wss://stream.data.alpaca.markets/v2/iex")
+        result = ws.recv()
+        log(f"<{result}")
+        self.ws = ws
+        # TODO: Handle failed connection
 
-        return current_price
+    def authenticate(self):
+        log("Logging in...")
+        logon = {"action": "auth", "key": self.key, "secret": self.secret}
+        self.ws.send(logon)
+        log(f">{logon}")
+
+        result = self.ws.recv()
+        log(f"<{result}")
+        # TODO: Handle failed authentication
+
+    def subscribe(self, instrument_set):
+        # TODO: Implement
+        pass
+
+    def listen(self):
+        while datetime.datetime.now().hour < 17 and datetime.datetime.now().hour > 9:
+            log(f"<{self.ws.recv()}")
