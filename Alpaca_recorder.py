@@ -11,11 +11,10 @@ def main():
     log("Connecting...")
     ws = create_connection("wss://stream.data.alpaca.markets/v2/iex")
     result = ws.recv()
-    log(result)
+    log(f"<{result}")
 
     log("Logging in...")
-    #logon = {"action": "auth", "key": os.environ['APCA_API_KEY_ID'], "secret": os.environ['APCA_API_SECRET_KEY']}
-    logon = '{"action": "auth", "key": "PKE6Z2F0ZB01FQJDI057", "secret": "OJvJ8tmMkp56jbFo06TyouAbJdGqsKkt85w28XJe"}'
+    logon = {"action": "auth", "key": os.environ['APCA_API_KEY_ID'], "secret": os.environ['APCA_API_SECRET_KEY']}
     ws.send(logon)
     result = ws.recv()
     log(result)
